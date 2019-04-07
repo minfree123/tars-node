@@ -1,8 +1,10 @@
 #!/bin/bash
 
+echo "begin"
 MachineIp=$(ip addr | grep inet | grep ${INET_NAME} | awk '{print $2;}' | sed 's|/.*$||')
 MachineName=$(cat /etc/hosts | grep ${MachineIp} | awk '{print $2}')
 
+echo "$MachineIp|$MachineName"
 install_node_services(){
 	echo "base services ...."
 	
@@ -25,6 +27,7 @@ install_node_services(){
 	
 	chmod u+x tarsnode_install.sh
 	./tarsnode_install.sh
+        echo "end install node"
 	
 	echo "* * * * * /usr/local/app/tars/tarsnode/util/monitor.sh" >> /etc/crontab
 }
